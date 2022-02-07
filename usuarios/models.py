@@ -1,5 +1,5 @@
 from django.db import models
-from datetime import datetime
+from django.urls import reverse
 
 # Create your models here.
 
@@ -10,23 +10,24 @@ class Usuario(models.Model):
         ('F', 'Femenino')
     )
 
-    codigo = models.IntegerField()
     photo = models.ImageField(upload_to="photos/%Y/%m/%d/")
-    nombre = models.CharField(max_length=100)
-    profesion = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100, blank=True)
+    age = models.IntegerField()
+    birth_date = models.DateField(blank=False)
     genero = models.CharField(choices=genero_eleccion, max_length=100)
-    ciudad = models.CharField(max_length=100)
+    is_active = models.BooleanField(default=True)
+
+    def get_url(self):
+        return reverse('usuario_data', args=[self.pk])
 
     def __str__(self):
-        return self.nombre
+        return self.name
 
 
 class Asistencia(models.Model):
-    fecha_asistencia = models.DateTimeField(default=datetime.now())
+    assist_date = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="usuario")
 
     def __str__(self):
-        return self.fecha_asistencia
-
-class UsuarioAsistencia(models.Model):
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="usuario")
-    asistencia = models.ForeignKey(Asistencia, on_delete=models.CASCADE, related_name="asistencia")
+        return str(self.assist_date)

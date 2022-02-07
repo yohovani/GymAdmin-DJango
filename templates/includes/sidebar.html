@@ -1,0 +1,44 @@
+<div class="sidebar" data-color="yellow">
+      <!--
+        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
+    -->
+      <div class="logo">
+        <a href="http://www.creative-tim.com" class="simple-text logo-normal">
+          GYM PRO
+        </a>
+      </div>
+      <div class="sidebar-wrapper" id="sidebar-wrapper">
+        <ul class="nav">
+          <li class="active">
+            <a href="{% url 'dashboard' %}">
+              <i class="now-ui-icons design_app"></i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'usuario_list' %}">
+              <i class="now-ui-icons users_circle-08"></i>
+              <p>Control de usuarios</p>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'punto_venta' %}">
+              <i class="now-ui-icons shopping_cart-simple"></i>
+              <p>Punto de venta</p>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'notificaciones' %}">
+              <i class="now-ui-icons ui-1_bell-53"></i>
+              <p>Notifications</p>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'profile' %}">
+              <i class="now-ui-icons users_single-02"></i>
+              <p>User Profile</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
