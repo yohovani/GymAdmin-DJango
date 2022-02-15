@@ -7,4 +7,6 @@ urlpatterns = [
     path('nf/', views.usuariolist, name="notificaciones"),
     path('profile/', views.usuariolist, name="profile"),
     path('usuario_data/<int:id_usuario>/', views.usuario_data, name="usuario_data"),
+    path('registro_cliente/', views.registro_cliente, name="registro_cliente"),
+    path('search/', views.search, name='search'),
 ]

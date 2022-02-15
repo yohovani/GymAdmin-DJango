@@ -1,0 +1,73 @@
+  <!-- Modal -->
+  {% block content %}
+  <div class="modal fade" id="registrar_pago" tabindex="-1" aria-labelledby="registrar_pagoLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="registrar_pagoLabel">Registrar Pago <i
+                          class="now-ui-icons business_money-coins"></i></h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <form action="{% url 'registrar_pago' %}" method="post">
+                    {% csrf_token %}
+                      <input type="hidden" name="id_cliente" id="id_cliente">
+                      <select id="tipo_pago" name="tipo_pago" class="form-select form-select-sm" onchange="mostar_info_pago()">
+                          <option selected disabled>Seleccione un Tipo de Pago</option>
+                          {% for tp in tipos_pago %}
+                          <option value="{{tp.tipo}}">{{tp.tipo}}</option>
+                          {% endfor %}
+                      </select>
+                      <div class="card" id="payment_detail" style="display:none">
+                        <div class="card-body">
+                          <h5 class="card-title">Detalles del Pago</h5>
+
+                          <div class="alert alert-warning" role="alert">
+                            <h4 class="alert-heading">Se realizara la siguiente Acci&oacute;n!</h4>
+                            <table class="table table-striped table-hover">
+                                <tbody>
+                                    <tr>
+                                        <td>Tipo de Transacci&oacute;n: </td>
+                                        <td id="tt"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Monto: </td>
+                                        <td id="monto"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cliente: </td>
+                                        <td id="cliente_nombre"></td>
+                                    </tr>
+                                </tbody>    
+                            </table>
+                            <hr>
+                          </div>
+
+                        </div>
+                      </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar <li
+                          class="now-ui-icons ui-1_simple-remove"></li></button>
+                  <button type="submit" class="btn btn-primary">Guardar <li class="now-ui-icons ui-1_check"></li>
+                      </button>
+                  </form>
+
+              </div>
+          </div>
+      </div>
+  </div>
+  <script>
+      function mostar_info_pago() {
+          document.getElementById("payment_detail").style.display = "block"
+          document.getElementById("tt").innerHTML = document.getElementById("tipo_pago").value
+          let mapa= new Map();
+            {% for tp in tipos_pago %}
+                mapa.set('{{tp.tipo}}','{{tp.monto}}')
+            {% endfor %}
+            document.getElementById("monto").innerHTML = mapa.get(document.getElementById("tipo_pago").value) 
+            
+      }
+  </script>
+
+  {% endblock %}
