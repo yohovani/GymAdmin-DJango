@@ -1,0 +1,52 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'assets/css/now-ui-dashboard.css' %}" rel="stylesheet" />
+
+
+    <title>GYM PRO</title>
+  </head>
+  <body style="background-color: black; min-height: 100%;">
+    <img src="{% static 'css/waring.jpg' %}" width="100%" height="50px">
+    <div class="container" style="text-align:center">
+      <h1 style="font-family: 'Times New Roman', Times, serif; color: #ffff00">GYM PRO</h1>
+    
+      <div class="card text-white bg-secondary mb-3">
+        <h5 class="card-header"><b>Inicio de Sesi&oacute;n</b></h5>
+        <div class="card-body">
+            <form action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label class="text-white" for="">Correo Electronico</label>
+                    <input type="email" class="form-control" placeholder="Correo Electronico" name="email" >
+                </div> <!-- form-group// -->
+                <div class="form-group">
+                    <label class="text-white" for="">Contrase&ntilde;a</label>
+                    <input type="password" class="form-control" placeholder="Contrase&ntilde;a" name="password" >
+                </div> <!-- form-group// -->
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">Iniciar Sesi&oacute;n</button>
+                </div> <!-- form-group// -->
+
+
+
+            </form>
+        </div>
+      </div>
+
+    </div>
+    <footer>
+      <img style="transform: scaleX(-1);" src="{% static 'css/waring.jpg' %}" width="100%" height="50px">
+    </footer>
+  </body>
+</html>

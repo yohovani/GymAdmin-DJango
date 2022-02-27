@@ -7,20 +7,29 @@ from .models import Asistencia, Usuario
 from pagos.models import Pago, TipoPago
 from django.core.files.storage import FileSystemStorage
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 # Create your views here.
 
+@login_required(login_url='login')
 def usuariolist(request):
     get_usuarios = Usuario.objects.all()
     get_tipos_pago = TipoPago.objects.all()
 
+    paginator = Paginator(get_usuarios, 10)
+    page = request.GET.get('page')
+    page_users = paginator.get_page(page)
+
+
     data = {
-        'get_usuarios': get_usuarios,
+        'get_usuarios': page_users,
         'get_tipos_pago': get_tipos_pago,
     }
 
     return render(request, 'usuariolist.html', data)
 
+@login_required(login_url='login')
 def usuario_data(request, id_usuario):
     usuario = Usuario.objects.get(pk=id_usuario)
     asistencias = Asistencia.objects.filter(user__pk=id_usuario)
@@ -34,6 +43,7 @@ def usuario_data(request, id_usuario):
     }
     return render(request, 'usuario_detail.html', context)
 
+@login_required(login_url='login')
 def registro_cliente(request):
     if request.method == 'POST' and request.FILES['img_perfil']:
         nombre = request.POST['nombre']
@@ -61,6 +71,7 @@ def registro_cliente(request):
         cliente.save()
     return redirect('usuario_list')
 
+@login_required(login_url='login')
 def search(request):
     get_tipos_pago = TipoPago.objects.all()
     if 'keyword' in request.GET:

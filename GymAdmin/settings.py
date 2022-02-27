@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'usuarios',
     'pagos',
+    'accounts',
+    'store',
+    'cart',
 ]
 
 MIDDLEWARE = [
@@ -71,6 +74,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'GymAdmin.wsgi.application'
 
+AUTH_USER_MODEL = 'accounts.Account'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases

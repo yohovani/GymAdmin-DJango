@@ -1,0 +1,9 @@
+<nav class="navbar navbar-dark bg-dark justify-content-between">
+    <a href="{% url 'punto_venta' %}" class="navbar-brand">Lista de Productos</a>
+
+    <form action="{% url 'search_product' %}" class="form-inline">
+        <input class="form-control mr-sm-2" type="search" name="keyword" placeholder="Buscar Productos"
+            aria-label="Buscar Productos">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+    </form>
+</nav>

@@ -24,5 +24,8 @@ urlpatterns = [
     path('', views.home),
     path('dashboard/', views.dashboard, name="dashboard"),
     path('usuario/', include('usuarios.urls')),
-    path('pago/', include('pagos.urls'))
+    path('pago/', include('pagos.urls')),
+    path('accounts/', include('accounts.urls')),
+    path('store/', include('store.urls')),
+    path('cart/', include('cart.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

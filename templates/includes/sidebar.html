@@ -4,7 +4,8 @@
     -->
       <div class="logo">
         <a href="http://www.creative-tim.com" class="simple-text logo-normal">
-          GYM PRO
+          GYM PRO - 
+            {{user.first_name}} {{user.last_name}}
         </a>
       </div>
       <div class="sidebar-wrapper" id="sidebar-wrapper">
@@ -37,6 +38,12 @@
             <a href="{% url 'profile' %}">
               <i class="now-ui-icons users_single-02"></i>
               <p>User Profile</p>
+            </a>
+          </li>
+          <li>
+            <a class="btn btn-secondary" href="{% url 'logout' %}">
+              <i class="now-ui-icons sport_user-run"></i>
+              <p>Cerrar Sesi&oacute;n</p>
             </a>
           </li>
         </ul>

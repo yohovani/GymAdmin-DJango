@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="wrapper">
+        {% include 'includes/sidebar.html' %}
+        <div class="main-panel" id="main-panel">
+
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-transparent  bg-primary  navbar-absolute">
+              <div class="container-fluid">
+                
+      
+                <div class="collapse navbar-collapse justify-content-end" id="navigation">
+                  <form>
+                    <div class="input-group no-border">
+                      <form action="{% url 'search' %}" class="form-inline">
+                        <input type="text" value="" class="form-control" name="keyword" placeholder="Buscar Cliente">
+                      
+              
+
+                      <div class="input-group-append">
+                        <div class="input-group-text">
+                          <i type="submit" class="now-ui-icons ui-1_zoom-bold"></i>
+                        </div>
+                      </div>
+                    </form>
+                    </div>
+                  </form>
+                  <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <div class="icon icon-sm rounded-circle border"><i class="fa fa-shopping-cart"></i></div>
+                        <span class="badge badge-pill badge-danger notify">{{ cart_count }}</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
+            <!-- End Navbar -->
+
+
+            
+            <div class="panel-header">
+                <div class="header text-center">
+                    <h1 style="font-family: 'Times New Roman', Times, serif; color: #ffff00">GYM PRO</h1>
+                </div>
+              </div>
+              <div class="content">
+                  {% include 'includes/search_store.html' %}
+                <div class="row" >
+                    {% if products %}
+                        {% for product in products %}
+                            <div class="col-md-4">
+                                <figure class="card card-product-grid">
+                                    <div class="img-wrap"> 
+                                        
+                                        <a href="{{ product.get_url }}"><img src="{{product.images.url}}" width="75%" height="75%"></a>
+                                        
+                                    </div> <!-- img-wrap.// -->
+                                    <figcaption class="info-wrap">
+                                        <div class="fix-height">
+                                            <a href="{{ product.get_url }}" class="title">{{product.product_name}}</a>
+                                            <div class="price-wrap mt-2">
+                                                <span class="price">${{product.price}}</span>
+                                            </div> <!-- price-wrap.// -->
+                                        </div>
+                                        <a href="{% url 'add_cart' product.id %}" class="btn btn-block btn-success">Agregar al carrito </a>
+                                    </figcaption>
+                                </figure>
+                            </div> <!-- col.// -->
+                        {% endfor %}
+                        {% else %}
+                            <div>
+                                <h2>No se encontraron Resultados. Intente despues</h2>
+                            </div>
+                    {% endif %}
+                </div>
+
+                  <nav class="mt-4" aria-label="Page navigation sample">
+                    {% if products.has_other_pages %}
+                        <ul class="pagination">
+                            {% if products.has_previous %}
+                                <li class="page-item"><a class="page-link" href="?page={{products.previous_page_number}}">Anterior</a></li>
+                            {% else %}
+                                <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
+                            {% endif %}
+            
+                            {% for i in products.paginator.page_range %}
+            
+                                {% if products.number == i %}
+                                    <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+                                {% else %}
+                                    <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if products.has_next %}
+                                <li class="page-item"><a class="page-link" href="?page={{products.next_page_number}}">Siguiente</a></li>
+                            {% else %}
+                                <li class="page-item disabled"><a class="page-link" href="#">Siguiente</a></li>
+                            {% endif %}
+                        </ul>
+                    {% endif %}
+                </nav>
+            </div>
+    
+        </div>
+</div>
+{% endblock %}

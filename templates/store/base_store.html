@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="wrapper">
+        {% include 'includes/sidebar.html' %}
+        <div class="main-panel" id="main-panel">
+
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-transparent  bg-primary  navbar-absolute">
+              <div class="container-fluid">
+                
+      
+                <div class="collapse navbar-collapse justify-content-end" id="navigation">
+                  <form>
+                    <div class="input-group no-border">
+                      <form action="{% url 'search' %}" class="form-inline">
+                        <input type="text" value="" class="form-control" name="keyword" placeholder="Buscar Cliente">
+                      
+              
+
+                      <div class="input-group-append">
+                        <div class="input-group-text">
+                          <i type="submit" class="now-ui-icons ui-1_zoom-bold"></i>
+                        </div>
+                      </div>
+                    </form>
+                    </div>
+                  </form>
+                  <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <div class="icon icon-sm rounded-circle border"><i class="fa fa-shopping-cart"></i></div>
+                        <span class="badge badge-pill badge-danger notify">{{ cart_count }}</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
+            <!-- End Navbar -->
+
+            <div class="panel-header">
+                <div class="header text-center">
+                    <h1 style="font-family: 'Times New Roman', Times, serif; color: #ffff00">GYM PRO</h1>
+                </div>
+              </div>
+              <div class="content">
+                {% include 'includes/search_store.html' %}
+
+                {% endblock %}
