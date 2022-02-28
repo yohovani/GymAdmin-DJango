@@ -2,6 +2,7 @@ from configparser import MAX_INTERPOLATION_DEPTH
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from multiprocessing import context
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from .models import Asistencia, Usuario
 from pagos.models import Pago, TipoPago
@@ -84,3 +85,23 @@ def search(request):
     }
     return render(request, 'usuariolist.html', context)
 
+def asistencia(request):
+    status = 500
+    user_name = ""
+    print(request.POST['code_user'])
+    if request.method == 'POST':
+        try:
+            user = Usuario.objects.get(pk=request.POST['code_user'])
+            asistencia = Asistencia()
+            asistencia.user = user
+            asistencia.save()
+            status = 200
+            user_name = str(user.name) + " " + str(user.last_name)
+        except:
+            pass
+            print("Algo salio mal")
+    data = {
+        'status':status,
+        'usuario': user_name,
+    }
+    return JsonResponse(data)

@@ -21,7 +21,7 @@
             <h2 class="text-center">El carrito de compras esta vacio</h2>
             <br>
             <div class="text-center">
-                <a href="" class="btn btn-primary">Continua comprando</a>
+                <a href="{% url 'punto_venta' %}" class="btn btn-primary">Continua comprando</a>
             </div>
         {% else %}
         <div class="row">
@@ -104,8 +104,8 @@
                       <dd class="text-right text-dark b"><strong>$ {{grand_total}}</strong></dd>
                     </dl>
                     <hr>
-                    <a href="#" class="btn btn-primary btn-block"> Pagar </a>
-                    <a href="#" class="btn btn-light btn-block">Continua comprando</a>
+                    <a href="{% url 'place_order' %}" class="btn btn-primary btn-block"> Pagar </a>
+                    <a href="{% url 'punto_venta' %}" class="btn btn-light btn-block">Continua comprando</a>
                 </div> <!-- card-body.// -->
                 </div> <!-- card.// -->
     

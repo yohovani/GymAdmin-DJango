@@ -1,5 +1,6 @@
 <nav class="navbar navbar-dark bg-dark justify-content-between">
     <a href="{% url 'punto_venta' %}" class="navbar-brand">Lista de Productos</a>
+    <a href="{% url 'cart' %}" class="navbar-brand">Carrito de Compra</a>
 
     <form action="{% url 'search_product' %}" class="form-inline">
         <input class="form-control mr-sm-2" type="search" name="keyword" placeholder="Buscar Productos"

@@ -33,12 +33,14 @@ def add_cart(request, product_id):
                 for item in cart_item:
                     item = CartItem.objects.get(product = product)
                     item.quantity += 1
+                    item.total = item.quantity * item.product.price
                     item.save()
             else:
                 cart_item = CartItem.objects.create(
                     product = product,
                     quantity = 1,
                     user = currect_user,
+                    total = product.price,
                     cart = cart,
                 )
                 cart_item.save()
@@ -47,6 +49,7 @@ def add_cart(request, product_id):
                 product = product,
                 quantity = 1,
                 user = currect_user,
+                total = product.price,
                 cart = cart,
             )
             cart_item.save()

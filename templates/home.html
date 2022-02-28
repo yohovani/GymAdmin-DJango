@@ -21,7 +21,11 @@
         <div class="col-6" align="center">
           <h4 style="font-family: 'Times New Roman', Times, serif; color: #ffff00">Ingreso por Código de usuario</h4>
           <div class="col-9">
-            <input type="text" class="form-control" disabled id="code_user" value="" style="text-align: right; font-size: 28px;font-family: 'Times New Roman', Times, serif;">
+            <form action="{% url 'asistencia' %}" method="POST">
+              {% csrf_token %}
+                <input type="hidden" id="code_user" name="code_user" value="" >
+                <input type="text" class="form-control" disabled id="code_user_text" name="code_user_text" value="" style="text-align: right; font-size: 28px;font-family: 'Times New Roman', Times, serif;">
+            
           </div><hr>
           <!-- Inicio de los Botones -->
           <div class="col-12">
@@ -45,22 +49,25 @@
     </div><br>
     <div class="container">
       <button onclick="removeCodeUser()" style="font-size: 22px;width: 25%;height: 70px;" type="button" class="btn btn-primary">Borrar</button>
-      <button onclick="addCodeUser()" style="font-size: 22px;width: 25%;height: 70px;" type="button" class="btn btn-success" >Aceptar</button>
+      <button style="font-size: 22px;width: 25%;height: 70px;" type="submit" class="btn btn-success" >Aceptar</button>
     </div>
   </div><hr>
 
-
+</form>
 <script>
     function addCodeUser(n){
         document.getElementById("code_user").value = document.getElementById("code_user").value+n;
+        document.getElementById("code_user_text").value = document.getElementById("code_user_text").value+n;
     }
 
     function removeCodeUser(){
       let max_ = document.getElementById("code_user").value.length-1
       if (max_ < 0){
         document.getElementById("code_user").value = ''
+        document.getElementById("code_user_text").value = ''
       }else{
         document.getElementById("code_user").value = document.getElementById("code_user").value.substr(0,max_)
+        document.getElementById("code_user_text").value = document.getElementById("code_user").value.substr(0,max_)
       }
 
     }

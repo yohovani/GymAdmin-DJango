@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    {% include 'store/base_store.html' %}
+    <div class="card text-center">
+        <div class="card-tittle"><h3>Detalles de la compra</h3></div>
+    </div>
+    <div class="card">
+        
+        <div class="container">
+            <row>
+                <col class="col-12">
+                    <h4>Total a Pagar: <b>{{total}}</b> </h4>
+                </col>
+
+                <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for cart_item in cart_items %}
+                            <tr>
+                                <td>{{cart_item.product.product_name}}</td>
+                                <td>{{cart_item.quantity}}</td>
+                                <td>{{cart_item.total}}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <hr><h5>Informaci&oacute;n del Pago</h5>
+                <form action="{% url 'payments' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-2">
+                            M&eacute;todo de Pago: 
+                        </div>
+                        <div class="col-10">
+                            <div class="input-group mb-3">
+                                <select class="custom-select" id="metodo_pago" name="metodo_pago" required>
+                                    <option selected disabled>Seleccione un M&eacute;todo de Pago</option>
+                                    <option value="Efectivo">Efectivo</option>
+                                    <option value="Transeferencia">Transeferencia Electr&oacute;nica</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-4">
+                                    Cantidad Recibida:
+                                </div>
+                                <div class="col-6">
+                                    <input type="text" class="form-control" name="total_pago" id="total_pago" placeholder="Cantidad Recibida" onkeyup="calcular_cambio()" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-4">
+                                    Cambio:
+                                </div>
+                                <div class="col-6">
+                                    <input type="hidden" class="form-control" name="cambio_cliente" id="cambio_cliente" >
+                                    <input type="text" class="form-control" name="cambio_cliente_text" id="cambio_cliente_text" disabled placeholder="Cambio">
+                                </div>
+                            </div>
+                        </div>        
+    
+                    </div> <br>
+                    <button type="submit" class="btn btn-success btn-lg btn-block">Registrar Pago</button><br>
+                </form>
+                
+            </row>
+        </div>
+        <br>
+    </div>
+    <script>
+        function calcular_cambio(){
+            let expReg = new RegExp(/^[0-9]+([.])?([0-9]+)?$/)
+            let pago = document.getElementById("total_pago").value
+            if(pago.length > 0){
+                if (expReg.test(pago)){
+                    let cambio = pago-{{total}}
+                    document.getElementById("cambio_cliente").value = cambio
+                    document.getElementById("cambio_cliente_text").value = cambio    
+                }else{
+                    alert("Expresión no valida como pago")
+                    document.getElementById("total_pago").value = 0
+                }
+            }
+        }
+    </script>
+{% endblock %}

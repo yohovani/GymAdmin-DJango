@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container text-center">
+<h2 style="font-family: 'Times New Roman', Times, serif;">GYM PRO</h2>
+<table class="table table-hover text-center" onclick="javascript:window.print()">
+    <thead>
+      <tr>
+        <th scope="col">Producto</th>
+        <th scope="col">Cantidad</th>
+        <th scope="col">Precio por unidad</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for order_product in order_products %}
+            <tr>
+                <td>{{order_product.product.product_name}}</td>
+                <td>{{order_product.quantity}}</td>
+                <td>{{order_product.product.price}}</td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td>Pago:</td>
+            <td colspan="2">{{payment.payment_paid}}</td>
+        </tr>
+        <tr>
+            <td>Cambio</td>
+            <td colspan="2">{{payment.cambio}}</td>
+        </tr>
+
+    </tbody>
+</table>
+<a href="{% url 'punto_venta' %}">Gracias por su compra</a>
+</div>
+{% endblock %}
