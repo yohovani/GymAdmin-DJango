@@ -31,17 +31,17 @@
           {% if user.is_admin %}
             <li>
               <a href="{% url 'cierres_caja' %}">
-                <i class="now-ui-icons ui-1_bell-53"></i>
-                <p>Notifications</p>
+                <i class="now-ui-icons shopping_credit-card"></i>
+                <p>Cierres de Caja</p>
               </a>
             </li>
-          {% endif %}
           <li>
-            <a href="{% url 'profile' %}">
+            <a href="{% url 'register' %}">
               <i class="now-ui-icons users_single-02"></i>
-              <p>User Profile</p>
+              <p>Registrar Nuevo Usuario</p>
             </a>
           </li>
+          {% endif %}
           <li>
             <a class="btn btn-secondary" href="{% url 'logout' %}">
               <i class="now-ui-icons sport_user-run"></i>

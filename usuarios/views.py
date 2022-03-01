@@ -88,7 +88,7 @@ def search(request):
 def asistencia(request):
     status = 500
     user_name = ""
-    print(request.POST['code_user'])
+    user = None
     if request.method == 'POST':
         try:
             user = Usuario.objects.get(pk=request.POST['code_user'])
@@ -103,5 +103,9 @@ def asistencia(request):
     data = {
         'status':status,
         'usuario': user_name,
+        'user':user,
     }
-    return JsonResponse(data)
+    return render(request,'asistencia.html', data)
+
+def form_cliente(request):
+    return render(request,'registrar_cliente.html')

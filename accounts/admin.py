@@ -13,4 +13,4 @@ class AccountAdmin(UserAdmin):
     fieldsets = ()
 
 # Register your models here.
-admin.site.register(Account)
+admin.site.register(Account,AccountAdmin)

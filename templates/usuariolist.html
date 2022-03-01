@@ -86,9 +86,9 @@
       <nav class="navbar navbar-dark bg-dark justify-content-between">
         <a href="{% url 'usuario_list' %}" class="navbar-brand">Lista de Usuarios</a>
         
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_registro_clientes">
+        <a href="{% url 'form_cliente' %}" class="navbar-brand">
           Registrar Nuevo Cliente <i class="now-ui-icons users_single-02"></i>
-        </button>
+        </a>
 
         <form action="{% url 'search' %}" class="form-inline">
           <input class="form-control mr-sm-2" type="search" name="keyword" placeholder="Buscar Clientes" aria-label="Buscar Clientes">
@@ -171,7 +171,6 @@
   
   </div>
 
-  {% include 'modales/registro_clientes.html' %}
   {% include 'modales/registrar_pago.html' with tipos_pago=get_tipos_pago %}
 
   <script>
