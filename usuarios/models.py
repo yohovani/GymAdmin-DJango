@@ -19,6 +19,7 @@ class Usuario(models.Model):
     is_active = models.BooleanField(default=True)
     direccion = models.CharField(max_length=500, blank=True)
     phone = models.CharField(max_length=15, blank=True)
+    notas = models.CharField(max_length=255, blank=True)
 
     def get_url(self):
         return reverse('usuario_data', args=[self.pk])
