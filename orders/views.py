@@ -1,13 +1,17 @@
 from datetime import datetime
+import email
+from venv import create
 from django.shortcuts import redirect, render
 from django.http import JsonResponse
 from cart.models import CartItem
 from store.models import Product
+from usuarios.models import Usuario
 from .models import Order, OrderProduct, Payment
 import random
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
-
+from caja.models import CierreCaja
+from datetime import date
 import datetime
 
 # Create your views here.
@@ -16,6 +20,14 @@ def place_order(request, total=0, quantity=0):
     cart_items = CartItem.objects.filter(user=current_user)
     cart_count = cart_items.count()
 
+    cierre_caja = CierreCaja.objects.filter(user=current_user, created_at=date.today()).exists()
+
+    if not cierre_caja:
+        cierre_caja = CierreCaja(
+            user=request.user
+        )
+        cierre_caja.save()
+    cierre_caja = CierreCaja.objects.get(user=current_user, created_at=date.today())
     if cart_count <= 0:
         return redirect('store')
 
@@ -32,6 +44,9 @@ def place_order(request, total=0, quantity=0):
             data.order_note = "test"#request.POST['order_note']
             data.order_total = total
             data.ip = request.META.get('REMOTE_ADDR')
+            data.cierre_caja = cierre_caja
+            cierre_caja.total += total
+            cierre_caja.save()
             data.save()
 
             yr = int(datetime.date.today().strftime('%Y'))

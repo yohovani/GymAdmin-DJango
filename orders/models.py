@@ -1,7 +1,9 @@
+from asyncio.windows_events import NULL
 from tkinter import CASCADE
 from django.db import models
 from accounts.models import Account
 from store.models import Product
+from caja.models import CierreCaja
 # Create your models here.
 class Payment(models.Model):
     user = models.ForeignKey(Account, on_delete=models.CASCADE)
@@ -20,6 +22,7 @@ class Order(models.Model):
     order_total = models.FloatField()
     is_ordered = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now=True)
+    cierre_caja = models.ForeignKey(CierreCaja, on_delete=models.CASCADE, blank=True,null=True)
 
     def __str__(self):
         return self.user.first_name
