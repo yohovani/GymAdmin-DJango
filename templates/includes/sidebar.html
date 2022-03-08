@@ -10,32 +10,32 @@
       </div>
       <div class="sidebar-wrapper" id="sidebar-wrapper">
         <ul class="nav">
-          <li class="active">
+          <li class="active" id="dashboard">
             <a href="{% url 'dashboard' %}">
               <i class="now-ui-icons design_app"></i>
               <p>Dashboard</p>
             </a>
           </li>
-          <li>
+          <li id="usuario">
             <a href="{% url 'usuario_list' %}">
               <i class="now-ui-icons users_circle-08"></i>
               <p>Control de usuarios</p>
             </a>
           </li>
-          <li>
+          <li id="store">
             <a href="{% url 'punto_venta' %}">
               <i class="now-ui-icons shopping_cart-simple"></i>
               <p>Punto de venta</p>
             </a>
           </li>
           {% if user.is_admin %}
-            <li>
+            <li id="caja">
               <a href="{% url 'cierres_caja' %}">
                 <i class="now-ui-icons shopping_credit-card"></i>
                 <p>Cierres de Caja</p>
               </a>
             </li>
-          <li>
+          <li id="accounts">
             <a href="{% url 'register' %}">
               <i class="now-ui-icons users_single-02"></i>
               <p>Registrar Nuevo Usuario</p>
@@ -51,3 +51,15 @@
         </ul>
       </div>
     </div>
+    <script>
+
+        let URLactual = window.location;
+        let direccion = URLactual.href.split("/");
+        $("#dashboard").removeClass("active")
+        $("#usuario").removeClass("active")
+        $("#store").removeClass("active")
+        $("#caja").removeClass("active")
+        $("#accounts").removeClass("active")
+        $("#"+direccion[3]+"").addClass("active")
+
+    </script>
