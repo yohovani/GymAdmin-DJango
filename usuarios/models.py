@@ -1,3 +1,4 @@
+from datetime import date
 from django.db import models
 from django.urls import reverse
 
@@ -20,6 +21,9 @@ class Usuario(models.Model):
     direccion = models.CharField(max_length=500, blank=True)
     phone = models.CharField(max_length=15, blank=True)
     notas = models.CharField(max_length=255, blank=True)
+    vencimiento = models.DateField(default=date.today, null=True)
+    horario_inicio = models.TimeField(default="00:00:00")
+    horario_fin = models.TimeField(default="00:00:00")
 
     def get_url(self):
         return reverse('usuario_data', args=[self.pk])

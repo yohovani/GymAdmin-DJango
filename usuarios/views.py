@@ -57,6 +57,8 @@ def registro_cliente(request):
         direccion = request.POST['direccion']
         phone = request.POST['phone']
         notas = request.POST['notas']
+        time_start = request.POST['time_start']
+        time_end = request.POST['time_end']
         cliente = Usuario.objects.create(
             name = nombre,
             last_name = apellido,
@@ -66,7 +68,9 @@ def registro_cliente(request):
             is_active = True,
             direccion = direccion,
             phone = phone,
-            notas = notas
+            notas = notas,
+            horario_inicio = time_start,
+            horario_fin = time_end
         )
         cliente.photo = request.FILES.get('img_perfil')
         fss = FileSystemStorage()

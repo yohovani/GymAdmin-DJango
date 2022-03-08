@@ -7,6 +7,7 @@ from usuarios.models import Usuario
 class TipoPago(models.Model):
     tipo = models.CharField(max_length=100)
     monto = models.FloatField(max_length=100)
+    duracion = models.IntegerField(default=0, null=True)
 
     def __str__(self):
         return self.tipo
